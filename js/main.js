@@ -1,6 +1,5 @@
 // text
 
-import './map/map-filter.js'; // работа с фильтром карты
 import './map/map-popup.js'; // всплывающая карточка на карте
 import './form/check-form.js'; // проверка полей формы
 import './form/form.js'; // работа с формой
