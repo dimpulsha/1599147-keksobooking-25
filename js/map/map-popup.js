@@ -26,8 +26,14 @@ const getPlaceName = (placeList, placeKind) => {
   const place = placeList.find((value) => value.kind === placeKind);
   return place.nameRu;
 };
-
+const settings = {
+  0:(roomQuantity)=>`${roomQuantity} ${UNKNOWN_ROOM_TEXT}`,
+};
 const getRoomDescription = (roomQuantity) => {
+  const formatter = settings[roomQuantity];
+  if(formatter){
+    return formatter(roomQuantity);
+  }
   switch (roomQuantity) {
     case 0: return `${roomQuantity} ${UNKNOWN_ROOM_TEXT}`;
     case 11: return `${roomQuantity} ${MORE_ROOM_TEXT}`;
@@ -51,13 +57,36 @@ const getGuestDescription = (guestQuantity) => {
   }
 };
 
+const makeAvatarFunc = (element, dataItem)=>{
+  if (dataItem.author.avatar) {
+    return element.setAttribute('src', dataItem.author.avatar);
+  }
+  return element.remove();
+};
+
+/**
+ *
+ * @param {HTMLElement} element
+ * @param {*} dataItem
+ */
+const makeHeaderFunc = (element, dataItem)=>{
+  if (dataItem.offer && dataItem.offer.title) {
+    element.textContent = dataItem.offer.title;
+  } else {
+    element.textContent = 'Заголовок предложения';
+    element.classList.add('visually-hidden');
+  }
+};
+
+const cardSettings = [
+  ['.popup__avatar', makeAvatarFunc],
+  ['.popup__title', makeHeaderFunc],
+];
+
 const fillCardData = (dataItem) => {
   const cardItem = cardContent.cloneNode(true);
 
-  //  аватар
-  if (dataItem.author.avatar) {
-    cardItem.querySelector('.popup__avatar').setAttribute('src', dataItem.author.avatar);
-  } else { cardItem.querySelector('.popup__avatar').remove(); }
+  cardSettings.forEach(([selector, func])=>func(cardItem.querySelector(selector)));
 
   // заголовок
   if (dataItem.offer && dataItem.offer.title) {

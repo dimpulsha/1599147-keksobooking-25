@@ -1,6 +1,8 @@
 import {getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray} from './utils.js';
 import { getOfferTitle, getOfferPlace, getCheckinTime, getCheckoutTime, getFeatures, getDescriptions, getPhotos } from '../config.js';
 
+const makeAvatarUrl = (index)=>`img/avatars/user0${index + 1}.png`;
+
 const createOfferItem = (index) => {
 
   const offerObject = {
@@ -26,14 +28,14 @@ const createOfferItem = (index) => {
   offerObject.offer.address = `${offerObject.offer.location.lat} ${offerObject.offer.location.lng}`;
   // перевести на замыкание - набор уникальных индексов от 1 до 9
   if (index < 8) {
-    offerObject.author.avatar = `img/avatars/user0${index + 1}.png`;
+    offerObject.author.avatar = makeAvatarUrl(index);
   }
 
   return offerObject;
 };
 
 const createOfferList = (itemQuantity) => {
-  const offerArray = new Array(itemQuantity).fill(null).map((value, index) => createOfferItem(index));
+  const offerArray = new Array(itemQuantity).fill(null).map((_, index) => createOfferItem(index));
   return offerArray;
 };
 
