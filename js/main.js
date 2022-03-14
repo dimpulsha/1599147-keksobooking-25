@@ -1,6 +1,5 @@
 // text
 
-import './map/map-config.js'; // конфигурация  для карты
 import './map/map.js'; //загрузка и инициализация карты
 import './map/map-filter.js'; // работа с фильтром карты
 import './map/map-popup.js'; // всплывающая карточка на карте
