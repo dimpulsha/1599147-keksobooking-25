@@ -61,7 +61,7 @@ const createOfferList = (itemQuantity) => {
     return offerObject;
   };
 
-  const offerArray = new Array(itemQuantity).fill(null).map(() => createOfferItem());
+  const offerArray = Array.from({length: itemQuantity}, createOfferItem);
   // console.log(offerArray);
   return offerArray;
 };
