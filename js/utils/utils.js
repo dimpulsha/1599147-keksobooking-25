@@ -106,4 +106,10 @@ export const makePermutation = (items, length)=>{
     .map(dropSalt).slice(0,length);
 };
 
+export const extractUniqueItems = (items)=>[...new Set(items)];
+/*
+extractUniqueItems([1, 2, 1, 3, 4, 2, 4])
+  (4)[1, 2, 3, 4]
+*/
+
 export { getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray, getUnicArrayValue };
