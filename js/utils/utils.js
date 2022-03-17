@@ -91,4 +91,19 @@ const getUnicArrayValue = (array) => {
   };
 };
 
+const isLengthWithinBoundaries = (items, length)=> items.length >= length;
+const withRandomSalt = (item)=>({item,salt:Math.random()});
+const compareBySalt = (tempA, tempB)=>tempA.salt-tempB.salt;
+const dropSalt = (temp)=>temp.item;
+
+export const makePermutation = (items, length)=>{
+  if(!isLengthWithinBoundaries(items, length)){
+    throw new Error('not enough items');
+  }
+  return items
+    .map(withRandomSalt)
+    .sort(compareBySalt)
+    .map(dropSalt).slice(0,length);
+};
+
 export { getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray, getUnicArrayValue };
