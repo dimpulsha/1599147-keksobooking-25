@@ -15,7 +15,7 @@ import {
 } from '../config.js';
 
 const TEST_OBJECT_NUM = 10;
-const TEST_PRICE_MIN = 1000000;
+const TEST_PRICE_MIN = 1000000-1;
 const TEST_PRICE_MAX = 1000000;
 const TEST_ROOM_MIN = 0;
 const TEST_ROOM_MAX = 100;
@@ -30,7 +30,7 @@ const TEST_LNG_PRECISION = 5;
 
 const getLeadZero = (index) => index < 10 ? `0${index}` : `${index}`;
 
-const getAvatarLink = (index) => `img/avatars/user0${getLeadZero(index%100)}.png`;
+const getAvatarLink = (index) => `img/avatars/user${getLeadZero(index%100)}.png`;
 
 const titles = getOfferTitle();
 const kinds = getOfferPlace().map((place) => place.kind);
@@ -52,7 +52,7 @@ const createOfferItem = () => {
   const checkIn = getRandomItem(checkIns);
   return {
     author: {
-      avatar: getAvatarLink(getRandomInteger(0,99)),
+      avatar: getAvatarLink(getRandomInteger(1,11)),
     },
     offer: {
       title: getRandomItem(titles),
