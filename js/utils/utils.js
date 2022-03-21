@@ -22,6 +22,7 @@ const getRandomFloat = (min, max, exp = 0) => {
   throw new RangeError('Incoming data error. Check incoming data');
 };
 const makeWeightedItem = (item)=>({item, weight:Math.random()});
+const compareByWeight = (left, right)=>left.weight-right.weight;
 // случайный уникальный массив на основе исходного
 const getUnicRangomArray = (srcArray) => {
   const newArray = new Array(getRandomInteger(0, srcArray.length - 1));
