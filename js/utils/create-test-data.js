@@ -70,13 +70,7 @@ const createOfferItem = () => {
     }
   };
 };
-const createOfferList = (length) => {
-
-
-  const offerArray = Array.from({length},() => createOfferItem());
-  // console.log(offerArray);
-  return offerArray;
-};
+const createOfferList = (length) =>  Array.from({length},() => createOfferItem());
 
 const prepareTestData = () => createOfferList(TEST_OBJECT_NUM);
 
