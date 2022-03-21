@@ -2,8 +2,8 @@ const getRandomInteger = (min, max) => {
   if (!(Number.isInteger(min) && Number.isInteger(max) && min >= 0 && max >= 0)) {
     throw new RangeError('Incoming data error. Check incoming data');
   }
-  if (min > max) {
-    [min, max] = [max, min];
+  if (min >= max) {
+    throw new Error('min >= max');
   }
   return Math.floor(min + Math.random() * (max - min + 1));
 };
