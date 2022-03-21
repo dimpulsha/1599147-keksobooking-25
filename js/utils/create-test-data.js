@@ -17,7 +17,7 @@ const TEST_LNG_PRECISION = 5;
 
 const getLeadZero = (index)=> index<10?`0${index}`:`${index}`;
 
-const getAvatarLink = (index) => `img/avatars/user0${getLeadZero(index)}.png`;
+const getAvatarLink = (index) => `img/avatars/user0${getLeadZero(index%100)}.png`;
 
 const createAvatarArray = (arrayLength) => new Array(arrayLength).fill(null).map((_, index) => getAvatarLink(index));
 
@@ -28,12 +28,10 @@ const getRandomLocation  = ()=>({
 });
 
 const createOfferList = (itemQuantity) => {
-  const getRandomAvatarLink = getUnicArrayValue(createAvatarArray(itemQuantity));
-
   const createOfferItem = () => {
     const location = getRandomLocation();
     return {
-      author: { avatar: getRandomAvatarLink(), },
+      author: { avatar: getRandomItem(createAvatarArray(itemQuantity)), },
       offer: {
         title: getRandomItem(getOfferTitle()),
         address: formatAddressByLocation(location),
