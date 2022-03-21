@@ -1,5 +1,18 @@
-import {getRandomFloat, getRandomInteger, getRandomSubArray, getNonUnicRangomArray, getRandomItem} from './utils.js';
-import { getOfferTitle, getOfferPlace, getCheckinTime, getFeatures, getDescriptions, getPhotos } from '../config.js';
+import {
+  getRandomFloat,
+  getRandomInteger,
+  getRandomSubArray,
+  getNonUnicRangomArray,
+  getRandomItem
+} from './utils.js';
+import {
+  getOfferTitle,
+  getOfferPlace,
+  getCheckinTime,
+  getFeatures,
+  getDescriptions,
+  getPhotos
+} from '../config.js';
 
 const TEST_OBJECT_NUM = 10;
 const TEST_PRICE_MIN = 1000000;
@@ -15,7 +28,7 @@ const TEST_LNG_MIN = 139.70000;
 const TEST_LNG_MAX = 139.80000;
 const TEST_LNG_PRECISION = 5;
 
-const getLeadZero = (index)=> index<10?`0${index}`:`${index}`;
+const getLeadZero = (index) => index < 10 ? `0${index}` : `${index}`;
 
 const getAvatarLink = (index) => `img/avatars/user0${getLeadZero(index%100)}.png`;
 
@@ -23,39 +36,45 @@ const createAvatarArray = (arrayLength) => new Array(arrayLength).fill(null).map
 
 const avatars = createAvatarArray(99);
 const titles = getOfferTitle();
-const kinds = getOfferPlace().map((place)=>place.kind);
+const kinds = getOfferPlace().map((place) => place.kind);
 const checkIns = getCheckinTime();
 const features = getFeatures();
 const descriptions = getDescriptions();
 
-const formatAddressByLocation = ({lat, lng})=>`${lat}, ${lng}`;
-const getRandomLocation  = ()=>({
+const formatAddressByLocation = ({
+  lat,
+  lng
+}) => `${lat}, ${lng}`;
+const getRandomLocation = () => ({
   lat: getRandomFloat(TEST_LAT_MIN, TEST_LAT_MAX, TEST_LAT_PRECISION),
   lng: getRandomFloat(TEST_LNG_MIN, TEST_LNG_MAX, TEST_LNG_PRECISION),
 });
 
-const createOfferList = (itemQuantity) => {
-  const createOfferItem = () => {
-    const location = getRandomLocation();
-    const checkIn = getRandomItem(checkIns);
-    return {
-      author: { avatar: getRandomItem(avatars), },
-      offer: {
-        title: getRandomItem(titles),
-        address: formatAddressByLocation(location),
-        price: getRandomInteger(TEST_PRICE_MIN, TEST_PRICE_MAX),
-        type: getRandomItem(kinds),
-        rooms: getRandomInteger(TEST_ROOM_MIN, TEST_ROOM_MAX),
-        guests: getRandomInteger(TEST_GUEST_MIN, TEST_GUEST_MAX),
-        checkin: checkIn,
-        checkout: checkIn,
-        features: getRandomSubArray(features),
-        description: getRandomItem(descriptions),
-        photos: getNonUnicRangomArray(getPhotos(), getRandomInteger(1, 5)) ,
-        location,
-      }
-    };
+const createOfferItem = () => {
+  const location = getRandomLocation();
+  const checkIn = getRandomItem(checkIns);
+  return {
+    author: {
+      avatar: getRandomItem(avatars),
+    },
+    offer: {
+      title: getRandomItem(titles),
+      address: formatAddressByLocation(location),
+      price: getRandomInteger(TEST_PRICE_MIN, TEST_PRICE_MAX),
+      type: getRandomItem(kinds),
+      rooms: getRandomInteger(TEST_ROOM_MIN, TEST_ROOM_MAX),
+      guests: getRandomInteger(TEST_GUEST_MIN, TEST_GUEST_MAX),
+      checkin: checkIn,
+      checkout: checkIn,
+      features: getRandomSubArray(features),
+      description: getRandomItem(descriptions),
+      photos: getNonUnicRangomArray(getPhotos(), getRandomInteger(1, 5)),
+      location,
+    }
   };
+};
+const createOfferList = (itemQuantity) => {
+
 
   const offerArray = new Array(itemQuantity).fill(null).map(() => createOfferItem());
   // console.log(offerArray);
@@ -66,9 +85,10 @@ const prepareTestData = () => createOfferList(TEST_OBJECT_NUM);
 
 // console.log(prepareTestData());
 
-export { createOfferList, prepareTestData };
+export {
+  createOfferList,
+  prepareTestData
+};
 
 // console.log(createOfferItem());
 // console.log(createOfferList(TEST_OBJECT_NUM));
-
-
