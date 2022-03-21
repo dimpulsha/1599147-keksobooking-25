@@ -24,10 +24,7 @@ const getAvatarLink = (index) => {
   return avatarLink;
 };
 
-const createAvatarArray = (arrayLength) => {
-  const avatarSrcArray = new Array(arrayLength).fill(null).map((_, index) => getAvatarLink(index));
-  return avatarSrcArray;
-};
+const createAvatarArray = (arrayLength) => new Array(arrayLength).fill(null).map((_, index) => getAvatarLink(index));
 
 const formatAddressByLocation = ({lat, lng})=>`${lat}, ${lng}`;
 const getRandomLocation  = ()=>({
