@@ -30,6 +30,10 @@ const createAvatarArray = (arrayLength) => {
 };
 
 const formatAddressByLocation = ({lat, lng})=>`${lat}, ${lng}`;
+const getRandomLocation  = ()=>({
+  lat: getRandomFloat(TEST_LAT_MIN, TEST_LAT_MAX, TEST_LAT_PRECISION),
+  lng: getRandomFloat(TEST_LNG_MIN, TEST_LNG_MAX, TEST_LNG_PRECISION),
+});
 
 const createOfferList = (itemQuantity) => {
   const getRandomAvatarLink = getUnicArrayValue(createAvatarArray(itemQuantity));
