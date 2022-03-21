@@ -70,16 +70,5 @@ const createOfferItem = () => {
     }
   };
 };
-const createOfferList = (length = TEST_OBJECT_NUM) =>  Array.from({length},() => createOfferItem());
+export const createOfferList = (length = TEST_OBJECT_NUM) =>  Array.from({length},() => createOfferItem());
 
-const prepareTestData = () => createOfferList(TEST_OBJECT_NUM);
-
-// console.log(prepareTestData());
-
-export {
-  createOfferList,
-  prepareTestData
-};
-
-// console.log(createOfferItem());
-// console.log(createOfferList(TEST_OBJECT_NUM));
