@@ -40,7 +40,7 @@ const createOfferList = (itemQuantity) => {
         title: getRandomItem(getOfferTitle()),
         address: '',
         price: getRandomInteger(TEST_PRICE_MIN, TEST_PRICE_MAX),
-        type: getOfferPlace()[getRandomInteger(0, getOfferPlace().length - 1)].kind,
+        type: getRandomItem(getOfferPlace()).kind,
         rooms: getRandomInteger(TEST_ROOM_MIN, TEST_ROOM_MAX),
         guests: getRandomInteger(TEST_GUEST_MIN, TEST_GUEST_MAX),
         checkin: getRandomItem(getCheckinTime()),
