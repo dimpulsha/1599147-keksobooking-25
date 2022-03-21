@@ -70,10 +70,10 @@ const createOfferItem = () => {
     }
   };
 };
-const createOfferList = (itemQuantity) => {
+const createOfferList = (length) => {
 
 
-  const offerArray = new Array(itemQuantity).fill(null).map(() => createOfferItem());
+  const offerArray = new Array(length).fill(null).map(() => createOfferItem());
   // console.log(offerArray);
   return offerArray;
 };
