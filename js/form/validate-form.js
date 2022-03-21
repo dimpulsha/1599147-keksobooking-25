@@ -9,14 +9,19 @@ const TITLE_OUT_OF_RANGE = `Значение должно быть не мене
 const offerPlaceList = getOfferPlace();
 const offerCapacityList = getPlaceCapacity();
 
-const createOfferPristineObject = (offerForm) => new Pristine(offerForm, {
-  classTo: 'ad-form__element',
-  errorClass: 'ad-form__element--error',
-  // successClass: '',
-  errorTextParent: 'ad-form__element',
-  errorTextTag: 'span',
-  errorTextClass: 'ad-form__element--error-text',
-});
+const createOfferPristineObject = (offerForm) => {
+
+  const result =  new Pristine(offerForm, {
+    classTo: 'ad-form__element',
+    errorClass: 'ad-form__element--error',
+    // successClass: '',
+    errorTextParent: 'ad-form__element',
+    errorTextTag: 'span',
+    errorTextClass: 'ad-form__element--error-text',
+  });
+  
+  return result;
+};
 
 // const offerPristineValidation = createOfferPristineObject(form);
 
