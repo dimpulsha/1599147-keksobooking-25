@@ -15,14 +15,9 @@ const TEST_LNG_MIN = 139.70000;
 const TEST_LNG_MAX = 139.80000;
 const TEST_LNG_PRECISION = 5;
 
+const getLeadZero = (index)=> index<10?`0${index}`:`${index}`;
 
-const getAvatarLink = (index) => {
-  let avatarLink = '';
-  if (index < 9) {
-    avatarLink = `img/avatars/user0${index + 1}.png`;
-  } else { avatarLink = `img/avatars/user${index + 1}.png`; }
-  return avatarLink;
-};
+const getAvatarLink = (index) => `img/avatars/user0${getLeadZero(index)}.png`;
 
 const createAvatarArray = (arrayLength) => new Array(arrayLength).fill(null).map((_, index) => getAvatarLink(index));
 
