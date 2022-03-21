@@ -15,14 +15,7 @@ const filterForm = document.querySelector('.map__filters');
 const cardContent = document.querySelector('#card').content.querySelector('.popup');
 const mapTarget = document.querySelector('#map-canvas');
 
-if (offerForm) {
-  disableForm(offerForm);
-}
-if (filterForm) {
-  disableForm(filterForm);
-}
-
-// getTestCardFragment(cardContent, prepareTestData());
+document.forms.forEach(disableForm);
 
 mapTarget.appendChild(getTestCardFragment(cardContent, prepareTestData()));
 
