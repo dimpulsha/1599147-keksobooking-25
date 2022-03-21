@@ -34,10 +34,11 @@ const createOfferList = (itemQuantity) => {
 
   const createOfferItem = () => {
 
+    const titles = getOfferTitle();
     const offerObject = {
       author: { avatar: getRandomAvatarLink(), },
       offer: {
-        title: getOfferTitle()[getRandomInteger(0, getOfferTitle().length - 1)],
+        title: titles[getRandomInteger(0, titles.length - 1)],
         address: '',
         price: getRandomInteger(TEST_PRICE_MIN, TEST_PRICE_MAX),
         type: getOfferPlace()[getRandomInteger(0, getOfferPlace().length - 1)].kind,
