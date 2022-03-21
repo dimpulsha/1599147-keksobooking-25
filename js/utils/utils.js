@@ -7,6 +7,7 @@ const getRandomInteger = (min, max) => {
   }
   return Math.floor(min + Math.random() * (max - min + 1));
 };
+export const getRandomItem = (items)=>items[getRandomInteger(0, items.length)];
 
 // случайное дробное
 const getRandomFloat = (min, max, exp = 0) => {
