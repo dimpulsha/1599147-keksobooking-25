@@ -73,7 +73,7 @@ const createOfferItem = () => {
 const createOfferList = (length) => {
 
 
-  const offerArray = new Array(length).fill(null).map(() => createOfferItem());
+  const offerArray = Array.from({length},() => createOfferItem());
   // console.log(offerArray);
   return offerArray;
 };
