@@ -1,4 +1,4 @@
-import {getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray, getUnicArrayValue} from './utils.js';
+import {getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray, getUnicArrayValue, getRandomItem} from './utils.js';
 import { getOfferTitle, getOfferPlace, getCheckinTime, getCheckoutTime, getFeatures, getDescriptions, getPhotos } from '../config.js';
 
 const TEST_OBJECT_NUM = 10;
@@ -39,7 +39,7 @@ const createOfferList = (itemQuantity) => {
     const offerObject = {
       author: { avatar: getRandomAvatarLink(), },
       offer: {
-        title: titles[getRandomInteger(0, titles.length - 1)],
+        title: getRandomItem(titles),
         address: '',
         price: getRandomInteger(TEST_PRICE_MIN, TEST_PRICE_MAX),
         type: getOfferPlace()[getRandomInteger(0, getOfferPlace().length - 1)].kind,
