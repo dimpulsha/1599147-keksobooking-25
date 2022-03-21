@@ -39,7 +39,7 @@ const createOfferList = (itemQuantity) => {
   const getRandomAvatarLink = getUnicArrayValue(createAvatarArray(itemQuantity));
 
   const createOfferItem = () => {
-
+    const location = getRandomLocation();
     const offerObject = {
       author: { avatar: getRandomAvatarLink(), },
       offer: {
