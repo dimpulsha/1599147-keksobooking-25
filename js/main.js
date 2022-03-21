@@ -19,12 +19,7 @@ const mapTarget = document.querySelector('#map-canvas');
 
 mapTarget.appendChild(getTestCardFragment(cardContent, createOfferList()));
 
-if (offerForm) {
-  enableForm(offerForm);
-}
-if (filterForm) {
-  enableForm(filterForm);
-}
+[...document.forms].forEach(enableForm);
 
 prepareOfferForm(offerForm);
 // onPlaceChangeListener(offerForm);
