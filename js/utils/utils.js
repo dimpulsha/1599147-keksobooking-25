@@ -27,6 +27,8 @@ const removeWeightFromItem = (itemWithWeight)=> itemWithWeight.item;
 const permute = (items)=>items.map(makeWeightedItem).sort(compareByWeight).map(removeWeightFromItem);
 const getSubArray = (items, length)=>items.slice(0, length);
 
+export const getRandomSubArray = (items)=>getSubArray(permute(items),getRandomInteger(0, items.length));
+
 // случайный уникальный массив на основе исходного
 const getUnicRangomArray = (srcArray) => {
   const newArray = new Array(getRandomInteger(0, srcArray.length - 1));
