@@ -55,7 +55,7 @@ const createOfferItem = () => {
   const checkIn = getRandomItem(checkIns);
   return {
     author: {
-      avatar: getRandomItem(avatars),
+      avatar: getAvatarLink(getRandomInteger(0,99)),
     },
     offer: {
       title: getRandomItem(titles),
