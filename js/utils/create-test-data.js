@@ -32,9 +32,6 @@ const getLeadZero = (index) => index < 10 ? `0${index}` : `${index}`;
 
 const getAvatarLink = (index) => `img/avatars/user0${getLeadZero(index%100)}.png`;
 
-const createAvatarArray = (arrayLength) => new Array(arrayLength).fill(null).map((_, index) => getAvatarLink(index));
-
-const avatars = createAvatarArray(99);
 const titles = getOfferTitle();
 const kinds = getOfferPlace().map((place) => place.kind);
 const checkIns = getCheckinTime();
