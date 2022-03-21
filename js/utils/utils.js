@@ -24,6 +24,7 @@ const getRandomFloat = (min, max, exp = 0) => {
 const makeWeightedItem = (item)=>({item, weight:Math.random()});
 const compareByWeight = (left, right)=>left.weight-right.weight;
 const removeWeightFromItem = (itemWithWeight)=> itemWithWeight.item;
+const permute = (items)=>items.map(makeWeightedItem).sort(compareByWeight).map(removeWeightFromItem);
 
 // случайный уникальный массив на основе исходного
 const getUnicRangomArray = (srcArray) => {
