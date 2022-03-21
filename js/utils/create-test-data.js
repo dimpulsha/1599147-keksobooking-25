@@ -44,7 +44,7 @@ const createOfferList = (itemQuantity) => {
       author: { avatar: getRandomAvatarLink(), },
       offer: {
         title: getRandomItem(getOfferTitle()),
-        address: '',
+        address: formatAddressByLocation(location),
         price: getRandomInteger(TEST_PRICE_MIN, TEST_PRICE_MAX),
         type: getRandomItem(getOfferPlace()).kind,
         rooms: getRandomInteger(TEST_ROOM_MIN, TEST_ROOM_MAX),
@@ -54,10 +54,7 @@ const createOfferList = (itemQuantity) => {
         features: getRandomSubArray(getFeatures()),
         description: getRandomItem(getDescriptions()),
         photos: getNonUnicRangomArray(getPhotos(), getRandomInteger(1, 5)) ,
-        location: {
-          lat: getRandomFloat(TEST_LAT_MIN, TEST_LAT_MAX, TEST_LAT_PRECISION),
-          lng: getRandomFloat(TEST_LNG_MIN, TEST_LNG_MAX, TEST_LNG_PRECISION),
-        },
+        location,
       }
     };
     offerObject.offer.address = `${offerObject.offer.location.lat} ${offerObject.offer.location.lng}`;
