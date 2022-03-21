@@ -44,7 +44,7 @@ const createOfferList = (itemQuantity) => {
         rooms: getRandomInteger(TEST_ROOM_MIN, TEST_ROOM_MAX),
         guests: getRandomInteger(TEST_GUEST_MIN, TEST_GUEST_MAX),
         checkin: getRandomItem(getCheckinTime()),
-        checkout: getCheckoutTime()[getRandomInteger(0, getCheckoutTime().length - 1)],
+        checkout: getRandomItem(getCheckoutTime()),
         features: getUnicRangomArray(getFeatures()),
         description: getDescriptions()[getRandomInteger(0, getDescriptions().length - 1)],
         photos: getNonUnicRangomArray(getPhotos(), getRandomInteger(1, 5)) ,
