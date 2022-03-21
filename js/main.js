@@ -11,7 +11,6 @@ import { disableForm, enableForm, prepareOfferForm } from './form/form.js'; // �
 // import './server.js'; // взаимодействие с сервером
 
 const offerForm = document.querySelector('.ad-form');
-const filterForm = document.querySelector('.map__filters');
 const cardContent = document.querySelector('#card').content.querySelector('.popup');
 const mapTarget = document.querySelector('#map-canvas');
 
