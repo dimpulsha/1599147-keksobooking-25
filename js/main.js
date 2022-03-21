@@ -1,4 +1,4 @@
-import { prepareTestData } from './utils/create-test-data.js';
+import { createOfferList } from './utils/create-test-data.js';
 import { getTestCardFragment } from './map/map-popup.js'; // всплывающая карточка на карте
 import { disableForm, enableForm, prepareOfferForm } from './form/form.js'; // работа с формой onPlaceChangeListener
 // import { offerValidation } from './form/validate-form.js';
@@ -17,7 +17,7 @@ const mapTarget = document.querySelector('#map-canvas');
 
 [...document.forms].forEach(disableForm);
 
-mapTarget.appendChild(getTestCardFragment(cardContent, prepareTestData()));
+mapTarget.appendChild(getTestCardFragment(cardContent, createOfferList()));
 
 if (offerForm) {
   enableForm(offerForm);
