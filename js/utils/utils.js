@@ -1,9 +1,11 @@
 const getRandomInteger = (min, max) => {
-  if (Number.isInteger(min) && Number.isInteger(max) && min >= 0 && max >= 0) {
-    if (min > max) { [min, max] = [max, min]; }
-    return Math.floor(min + Math.random() * (max - min + 1));
+  if (!(Number.isInteger(min) && Number.isInteger(max) && min >= 0 && max >= 0)) {
+    throw new RangeError('Incoming data error. Check incoming data');
   }
-  throw new RangeError('Incoming data error. Check incoming data');
+  if (min > max) {
+    [min, max] = [max, min];
+  }
+  return Math.floor(min + Math.random() * (max - min + 1));
 };
 
 // случайное дробное
@@ -11,7 +13,9 @@ const getRandomFloat = (min, max, exp = 0) => {
   // проверяем, что на входе неотрицательные числа и кол-во знаков задано целым положительным числом
   if ((typeof min === 'number') && (typeof max === 'number') && min >= 0 && max >= 0 && Number.isInteger(exp) && exp >= 0) {
     // а далее в общем  то же самое - прощаем перепутанный диапазон и получаем рандом из диапазона
-    if (min > max) { [min, max] = [max, min]; }
+    if (min > max) {
+      [min, max] = [max, min];
+    }
     return (min + Math.random() * (max - min)).toFixed(exp);
   }
   throw new RangeError('Incoming data error. Check incoming data');
@@ -91,4 +95,10 @@ const getUnicArrayValue = (array) => {
   };
 };
 
-export { getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray, getUnicArrayValue };
+export {
+  getRandomFloat,
+  getRandomInteger,
+  getUnicRangomArray,
+  getNonUnicRangomArray,
+  getUnicArrayValue
+};
