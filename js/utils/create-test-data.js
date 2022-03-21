@@ -34,7 +34,6 @@ const createOfferList = (itemQuantity) => {
 
   const createOfferItem = () => {
 
-    const checkInTime = getCheckinTime();
     const offerObject = {
       author: { avatar: getRandomAvatarLink(), },
       offer: {
@@ -44,7 +43,7 @@ const createOfferList = (itemQuantity) => {
         type: getOfferPlace()[getRandomInteger(0, getOfferPlace().length - 1)].kind,
         rooms: getRandomInteger(TEST_ROOM_MIN, TEST_ROOM_MAX),
         guests: getRandomInteger(TEST_GUEST_MIN, TEST_GUEST_MAX),
-        checkin: checkInTime[getRandomInteger(0, checkInTime.length - 1)],
+        checkin: getRandomItem(getCheckinTime()),
         checkout: getCheckoutTime()[getRandomInteger(0, getCheckoutTime().length - 1)],
         features: getUnicRangomArray(getFeatures()),
         description: getDescriptions()[getRandomInteger(0, getDescriptions().length - 1)],
