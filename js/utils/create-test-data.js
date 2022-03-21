@@ -1,4 +1,4 @@
-import {getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray, getUnicArrayValue, getRandomItem} from './utils.js';
+import {getRandomFloat, getRandomInteger, getRandomSubArray, getNonUnicRangomArray, getUnicArrayValue, getRandomItem} from './utils.js';
 import { getOfferTitle, getOfferPlace, getCheckinTime, getCheckoutTime, getFeatures, getDescriptions, getPhotos } from '../config.js';
 
 const TEST_OBJECT_NUM = 10;
@@ -45,8 +45,8 @@ const createOfferList = (itemQuantity) => {
         guests: getRandomInteger(TEST_GUEST_MIN, TEST_GUEST_MAX),
         checkin: getRandomItem(getCheckinTime()),
         checkout: getRandomItem(getCheckoutTime()),
-        features: getUnicRangomArray(getFeatures()),
-        description: getDescriptions()[getRandomInteger(0, getDescriptions().length - 1)],
+        features: getRandomSubArray(getFeatures()),
+        description: getRandomItem(getDescriptions()),
         photos: getNonUnicRangomArray(getPhotos(), getRandomInteger(1, 5)) ,
         location: {
           lat: getRandomFloat(TEST_LAT_MIN, TEST_LAT_MAX, TEST_LAT_PRECISION),
