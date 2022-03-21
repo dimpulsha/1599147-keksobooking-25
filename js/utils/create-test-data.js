@@ -1,5 +1,5 @@
-import {getRandomFloat, getRandomInteger, getRandomSubArray, getNonUnicRangomArray, getUnicArrayValue, getRandomItem} from './utils.js';
-import { getOfferTitle, getOfferPlace, getCheckinTime, getCheckoutTime, getFeatures, getDescriptions, getPhotos } from '../config.js';
+import {getRandomFloat, getRandomInteger, getRandomSubArray, getNonUnicRangomArray, getRandomItem} from './utils.js';
+import { getOfferTitle, getOfferPlace, getCheckinTime, getFeatures, getDescriptions, getPhotos } from '../config.js';
 
 const TEST_OBJECT_NUM = 10;
 const TEST_PRICE_MIN = 1000000;
