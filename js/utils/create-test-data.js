@@ -40,7 +40,7 @@ const createOfferList = (itemQuantity) => {
 
   const createOfferItem = () => {
     const location = getRandomLocation();
-    const offerObject = {
+    return {
       author: { avatar: getRandomAvatarLink(), },
       offer: {
         title: getRandomItem(getOfferTitle()),
@@ -57,11 +57,6 @@ const createOfferList = (itemQuantity) => {
         location,
       }
     };
-    offerObject.offer.address = `${offerObject.offer.location.lat} ${offerObject.offer.location.lng}`;
-    // offerObject.author.avatar = getAvatarLink(index);
-    // offerObject.author.avatar =getRandomAvatarLink();
-
-    return offerObject;
   };
 
   const offerArray = new Array(itemQuantity).fill(null).map(() => createOfferItem());
