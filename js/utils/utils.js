@@ -47,10 +47,7 @@ const getUnicRangomArray = (srcArray) => {
 };
 
 // случайный неуникальный массив на основе исходного
-const getNonUnicRangomArray = (srcArray, newLength) => {
-  const newArray = new Array(newLength).fill(null).map(() => srcArray[getRandomInteger(0, srcArray.length - 1)]);
-  return newArray;
-};
+const getNonUnicRangomArray = (srcArray, newLength) => new Array(newLength).fill(null).map(() => srcArray[getRandomInteger(0, srcArray.length - 1)]);
 
 
 // уникальное значение из массива
