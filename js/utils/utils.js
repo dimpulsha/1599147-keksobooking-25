@@ -1,21 +1,33 @@
 const getRandomInteger = (min, max) => {
-  if (Number.isInteger(min) && Number.isInteger(max) && min >= 0 && max >= 0) {
-    if (min > max) { [min, max] = [max, min]; }
-    return Math.floor(min + Math.random() * (max - min + 1));
+  if (!(Number.isInteger(min) && Number.isInteger(max) && min >= 0 && max >= 0)) {
+    throw new RangeError('Incoming data error. Check incoming data');
   }
-  throw new RangeError('Incoming data error. Check incoming data');
+  if (min >= max) {
+    throw new Error('min >= max');
+  }
+  return Math.floor(min + Math.random() * (max - min + 1));
 };
+export const getRandomItem = (items)=>items[getRandomInteger(0, items.length)];
 
 // случайное дробное
 const getRandomFloat = (min, max, exp = 0) => {
   // проверяем, что на входе неотрицательные числа и кол-во знаков задано целым положительным числом
   if ((typeof min === 'number') && (typeof max === 'number') && min >= 0 && max >= 0 && Number.isInteger(exp) && exp >= 0) {
     // а далее в общем  то же самое - прощаем перепутанный диапазон и получаем рандом из диапазона
-    if (min > max) { [min, max] = [max, min]; }
+    if (min > max) {
+      [min, max] = [max, min];
+    }
     return (min + Math.random() * (max - min)).toFixed(exp);
   }
   throw new RangeError('Incoming data error. Check incoming data');
 };
+const makeWeightedItem = (item)=>({item, weight:Math.random()});
+const compareByWeight = (left, right)=>left.weight-right.weight;
+const removeWeightFromItem = (itemWithWeight)=> itemWithWeight.item;
+const permute = (items)=>items.map(makeWeightedItem).sort(compareByWeight).map(removeWeightFromItem);
+const getSubArray = (items, length)=>items.slice(0, length);
+
+export const getRandomSubArray = (items)=>getSubArray(permute(items),getRandomInteger(0, items.length));
 
 // случайный уникальный массив на основе исходного
 const getUnicRangomArray = (srcArray) => {
@@ -35,10 +47,7 @@ const getUnicRangomArray = (srcArray) => {
 };
 
 // случайный неуникальный массив на основе исходного
-const getNonUnicRangomArray = (srcArray, newLength) => {
-  const newArray = new Array(newLength).fill(null).map(() => srcArray[getRandomInteger(0, srcArray.length - 1)]);
-  return newArray;
-};
+const getNonUnicRangomArray = (srcArray, length) => Array.from({length},() => srcArray[getRandomInteger(0, srcArray.length - 1)]);
 
 
 // уникальное значение из массива
@@ -91,4 +100,10 @@ const getUnicArrayValue = (array) => {
   };
 };
 
-export { getRandomFloat, getRandomInteger, getUnicRangomArray, getNonUnicRangomArray, getUnicArrayValue };
+export {
+  getRandomFloat,
+  getRandomInteger,
+  getUnicRangomArray,
+  getNonUnicRangomArray,
+  getUnicArrayValue
+};

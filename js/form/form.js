@@ -1,29 +1,58 @@
 // //модуль работы с формой
+import {
+  getOfferPlace,
+  getObjItemByValue
+} from '../config.js';
+import {
+  initOfferValidation,
+  getCheckedElementList
+} from './validate-form.js';
 
-const disableElementList = (elementList) => {
-  Object.values(elementList).forEach((element) => element.setAttribute('disabled', ''));
+const INITIAL_SELECTED_ROOM_COUNT = '1';
+const INITIAL_SELECTED_CAPACITY = '1';
+
+const placeList = getOfferPlace();
+
+const disableElement = (element) => element.setAttribute('disabled', '');
+
+const enableElement = (element) => element.removeAttribute('disabled');
+
+export const disableForm = (form) => {
+  // form.classList.add('ad-form--disabled');
+  // const formElementList = getFormElementList(form);
+  // disableElementList(formElementList);
+  [...form.elements].forEach(disableElement);
 };
 
-const enableElementList = (elementList) => {
-  Object.values(elementList).forEach((element) => element.removeAttribute('disabled'));
+export const enableForm = (form) => {
+  // form.classList.remove('ad-form--disabled');
+  // const formElementList = getFormElementList(form);
+  // enableElementList(formElementList);
+  [...form.elements].forEach(enableElement);
 };
 
-const getFormElementList = (form) => {
-  // const elementList = form.querySelectorAll('fieldset, select');
-  const elementList = form.elements;
-  return elementList;
+const onPlaceChange = (price, type) => {
+  const min = getObjItemByValue(placeList, 'kind', type.value).minPrice;
+  price.placeholder = min;
+};
+const initSelectedOne = (dropDownList, value) => {
+  dropDownList.value = value;
 };
 
-const disableForm = (form) => {
-  form.classList.add('ad-form--disabled');
-  const formElementList = getFormElementList(form);
-  disableElementList(formElementList);
-};
+export const prepareOfferForm = (offerForm) => {
 
-const enableForm = (form) => {
-  form.classList.remove('ad-form--disabled');
-  const formElementList = getFormElementList(form);
-  enableElementList(formElementList);
-};
+  const {
+    price,
+    type,
+    room,
+    capacity
+  } = getCheckedElementList(offerForm);
 
-export { disableForm, enableForm };
+  initOfferValidation(offerForm);
+
+  type.addEventListener('change', () => onPlaceChange(price, type));
+
+  onPlaceChange(price, type);
+  initSelectedOne(room, INITIAL_SELECTED_ROOM_COUNT);
+  initSelectedOne(capacity, INITIAL_SELECTED_CAPACITY);
+};
