@@ -6,6 +6,12 @@ const TITLE_MIN = 30;
 const TITLE_MAX = 100;
 const TITLE_OUT_OF_RANGE = `Значение должно быть не менее ${TITLE_MIN} и не более ${TITLE_MAX} знаков`;
 
+const validators = {
+  title:{
+
+  }
+}
+
 const offerPlaceList = getOfferPlace();
 const offerCapacityList = getPlaceCapacity();
 
@@ -19,7 +25,7 @@ const createOfferPristineObject = (offerForm) => {
     errorTextTag: 'span',
     errorTextClass: 'ad-form__element--error-text',
   });
-  
+
   return result;
 };
 
@@ -29,7 +35,7 @@ const offerValidation = (form, offerPristineValidation) => {
 
   const checkedElementList = getCheckedElementList(form);
 
-  const validateOfferTitle = (value) => value.length >= TITLE_MIN && value.length <= TITLE_MAX;
+  //const validateOfferTitle = (value) => value.length >= TITLE_MIN && value.length <= TITLE_MAX;
 
   const validateOfferPrice = () => {
     const placeByKind = getObjItemByValue(offerPlaceList, 'kind', checkedElementList.type.value);
@@ -56,7 +62,7 @@ const offerValidation = (form, offerPristineValidation) => {
   };
 
   // валидаторы
-  offerPristineValidation.addValidator(checkedElementList.title, validateOfferTitle, TITLE_OUT_OF_RANGE);
+//  offerPristineValidation.addValidator(checkedElementList.title, validateOfferTitle, TITLE_OUT_OF_RANGE);
   offerPristineValidation.addValidator(checkedElementList.price, validateOfferPrice, getPlaceOutOfRangeText);
   offerPristineValidation.addValidator(checkedElementList.capacity, validateOfferCapacity, getCapacityErrorText);
   offerPristineValidation.addValidator(checkedElementList.room, validateOfferCapacity, getCapacityErrorText);
