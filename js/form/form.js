@@ -1,54 +1,58 @@
 // //модуль работы с формой
-import { getOfferPlace, getObjItemByValue } from '../config.js';
-import { initOfferValidation, getCheckedElementList } from './validate-form.js';
+import {
+  getOfferPlace,
+  getObjItemByValue
+} from '../config.js';
+import {
+  initOfferValidation,
+  getCheckedElementList
+} from './validate-form.js';
+
+const INITIAL_SELECTED_ROOM_COUNT = '1';
+const INITIAL_SELECTED_CAPACITY = '1';
 
 const placeList = getOfferPlace();
 
-// const disableElementList = (elementList) => {
-//   Object.values(elementList).forEach((element) => element.setAttribute('disabled', ''));
-// };
-
-// const enableElementList = (elementList) => {
-//   Object.values(elementList).forEach((element) => element.removeAttribute('disabled'));
-// };
-
-// const getFormElementList = (form) => {
-//   // const elementList = form.querySelectorAll('fieldset, select');
-//   const elementList = form.elements;
-//   return elementList;
-// };
-
 const disableElement = (element) => element.setAttribute('disabled', '');
-const enableElement  = (element)=>element.removeAttribute('disabled');
 
+const enableElement = (element) => element.removeAttribute('disabled');
 
-const disableForm = (form) => {
+export const disableForm = (form) => {
   // form.classList.add('ad-form--disabled');
   // const formElementList = getFormElementList(form);
   // disableElementList(formElementList);
   [...form.elements].forEach(disableElement);
 };
 
-const enableForm = (form) => {
+export const enableForm = (form) => {
   // form.classList.remove('ad-form--disabled');
   // const formElementList = getFormElementList(form);
   // enableElementList(formElementList);
   [...form.elements].forEach(enableElement);
 };
 
-const prepareOfferForm = (offerForm) => {
+const onPlaceChange = (price, type) => {
+  const min = getObjItemByValue(placeList, 'kind', type.value).minPrice;
+  price.placeholder = min;
+};
+const initSelectedOne = (dropDownList, value) => {
+  dropDownList.value = value;
+};
 
-  const {price, type} = getCheckedElementList(offerForm);
+export const prepareOfferForm = (offerForm) => {
+
+  const {
+    price,
+    type,
+    room,
+    capacity
+  } = getCheckedElementList(offerForm);
 
   initOfferValidation(offerForm);
 
-  const onPlaceChange = () => {
-    price.placeholder = getObjItemByValue(placeList, 'kind',type.value).minPrice;
-  };
+  type.addEventListener('change', () => onPlaceChange(price, type));
 
-  type.addEventListener('change', onPlaceChange);
-  onPlaceChange();
-
+  onPlaceChange(price, type);
+  initSelectedOne(room, INITIAL_SELECTED_ROOM_COUNT);
+  initSelectedOne(capacity, INITIAL_SELECTED_CAPACITY);
 };
-
-export { disableForm, enableForm, prepareOfferForm };
