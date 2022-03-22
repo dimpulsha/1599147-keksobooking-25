@@ -1,6 +1,6 @@
 // //модуль работы с формой
 import { getOfferPlace, getObjItemByValue } from '../config.js';
-import { offerValidation, createOfferPristineObject } from './validate-form.js';
+import { initOfferValidation, createOfferPristineObject } from './validate-form.js';
 
 const placeList = getOfferPlace();
 
@@ -54,7 +54,7 @@ const prepareOfferForm = (offerForm) => {
 
   const formElementList = getCheckedElementList(offerForm);
 
-  offerValidation(offerForm, offerPristineObject);
+  initOfferValidation(offerForm, offerPristineObject);
 
   const onPlaceChange = (evt) => {
     formElementList.price.placeholder = getObjItemByValue(placeList, 'kind', evt.target.value).minPrice;

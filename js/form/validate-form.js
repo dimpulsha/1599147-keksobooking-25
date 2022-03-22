@@ -40,9 +40,9 @@ const makeOptionReducer = (capacities)=>{
 
 const collectOptions = (dropDownList, capacities)=> [...dropDownList.options].reduce(makeOptionReducer(capacities),'').slice(0,-1);
 
-const createOfferPristineObject = (offerForm) => new Pristine(offerForm, pristineConfig);
+export const createOfferPristineObject = (offerForm) => new Pristine(offerForm, pristineConfig);
 
-const offerValidation = (form, offerPristineValidation) => {
+export const initOfferValidation = (form, offerPristineValidation) => {
 
   const {room,capacity} = getCheckedElementList(form);
 
@@ -67,4 +67,3 @@ const offerValidation = (form, offerPristineValidation) => {
   form.addEventListener('submit', handleSubmit);
 };
 
-export { offerValidation, createOfferPristineObject};
