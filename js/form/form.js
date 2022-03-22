@@ -1,6 +1,6 @@
 // //модуль работы с формой
 import { getOfferPlace, getObjItemByValue } from '../config.js';
-import { initOfferValidation, createOfferPristineObject } from './validate-form.js';
+import { initOfferValidation, getCheckedElementList } from './validate-form.js';
 
 const placeList = getOfferPlace();
 
@@ -36,53 +36,19 @@ const enableForm = (form) => {
   [...form.elements].forEach(enableElement);
 };
 
-const getCheckedElementList = (form) => {
-  const formElementList = {
-    title: form.querySelector('#title'),
-    type: form.querySelector('#type'),
-    price: form.querySelector('#price'),
-    room: form.querySelector('#room_number'),
-    capacity: form.querySelector('#capacity'),
-  };
-  return formElementList;
-};
-
-
 const prepareOfferForm = (offerForm) => {
 
-  const offerPristineObject = createOfferPristineObject(offerForm);
+  const {price, type} = getCheckedElementList(offerForm);
 
-  const formElementList = getCheckedElementList(offerForm);
+  initOfferValidation(offerForm);
 
-  initOfferValidation(offerForm, offerPristineObject);
-
-  const onPlaceChange = (evt) => {
-    formElementList.price.placeholder = getObjItemByValue(placeList, 'kind', evt.target.value).minPrice;
-    offerPristineObject.validate(formElementList.price);
+  const onPlaceChange = () => {
+    price.placeholder = getObjItemByValue(placeList, 'kind',type.value).minPrice;
   };
 
-  const onCapacityChange = () => {
-    offerPristineObject.validate(formElementList.room);
-    offerPristineObject.validate(formElementList.capacity);
-  };
-
-  const onPlaceChangeListener = () => {
-    formElementList.type.addEventListener('change', (evt) => onPlaceChange(evt));
-  };
-
-  const onRoomChangeListener = () => {
-    formElementList.room.addEventListener('change', onCapacityChange);
-  };
-
-  const onCapacityChangeListener = () => {
-    formElementList.capacity.addEventListener('change', onCapacityChange);
-  };
-
-  onPlaceChangeListener(offerForm);
-  onRoomChangeListener(formElementList, offerPristineObject);
-  onCapacityChangeListener(formElementList, offerPristineObject);
+  type.addEventListener('change', onPlaceChange);
+  onPlaceChange();
 
 };
 
-export { disableForm, enableForm, prepareOfferForm, getCheckedElementList };
-// onPlaceChangeListener
+export { disableForm, enableForm, prepareOfferForm };

@@ -1,4 +1,3 @@
-import { getCheckedElementList } from './form.js';
 // валидация формы
 
 const pristineConfig = {
@@ -40,10 +39,19 @@ const makeOptionReducer = (capacities)=>{
 
 const collectOptions = (dropDownList, capacities)=> [...dropDownList.options].reduce(makeOptionReducer(capacities),'').slice(0,-1);
 
-export const createOfferPristineObject = (offerForm) => new Pristine(offerForm, pristineConfig);
+const createOfferPristineObject = (offerForm) => new Pristine(offerForm, pristineConfig);
 
-export const initOfferValidation = (form, offerPristineValidation) => {
+export const getCheckedElementList = (form) => ({
+  title: form.querySelector('#title'),
+  type: form.querySelector('#type'),
+  price: form.querySelector('#price'),
+  room: form.querySelector('#room_number'),
+  capacity: form.querySelector('#capacity'),
+});
 
+export const initOfferValidation = (form) => {
+
+  const offerPristineValidation = createOfferPristineObject(form);
   const {room,capacity} = getCheckedElementList(form);
 
 
