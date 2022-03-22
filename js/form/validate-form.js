@@ -37,20 +37,20 @@ const offerValidation = (form, offerPristineValidation) => {
 
   //const validateOfferTitle = (value) => value.length >= TITLE_MIN && value.length <= TITLE_MAX;
 
-  const validateOfferPrice = () => {
-    const placeByKind = getObjItemByValue(offerPlaceList, 'kind', checkedElementList.type.value);
-    return checkedElementList.price.value >= placeByKind.minPrice && checkedElementList.price.value <= placeByKind.maxPrice;
-  };
+  // const validateOfferPrice = () => {
+  //   const placeByKind = getObjItemByValue(offerPlaceList, 'kind', checkedElementList.type.value);
+  //   return checkedElementList.price.value >= placeByKind.minPrice && checkedElementList.price.value <= placeByKind.maxPrice;
+  // };
 
   const validateOfferCapacity = () => {
     const capacityByRoom = getObjItemByValue(offerCapacityList, 'roomValue', checkedElementList.room.value);
     return checkedElementList.capacity.value >= capacityByRoom.MIN && checkedElementList.capacity.value <= capacityByRoom.MAX;
   };
 
-  const getPlaceOutOfRangeText = () => {
-    const placeByKind = getObjItemByValue(offerPlaceList, 'kind', checkedElementList.type.value);
-    return `Цена за ночь не менее ${placeByKind.minPrice} и не более ${placeByKind.maxPrice}`;
-  };
+  // const getPlaceOutOfRangeText = () => {
+  //   const placeByKind = getObjItemByValue(offerPlaceList, 'kind', checkedElementList.type.value);
+  //   return `Цена за ночь не менее ${placeByKind.minPrice} и не более ${placeByKind.maxPrice}`;
+  // };
 
   const getCapacityErrorText = () => {
     const capacityByRoom = getObjItemByValue(offerCapacityList, 'roomValue', checkedElementList.room.value);
@@ -62,8 +62,8 @@ const offerValidation = (form, offerPristineValidation) => {
   };
 
   // валидаторы
-//  offerPristineValidation.addValidator(checkedElementList.title, validateOfferTitle, TITLE_OUT_OF_RANGE);
-  offerPristineValidation.addValidator(checkedElementList.price, validateOfferPrice, getPlaceOutOfRangeText);
+  //  offerPristineValidation.addValidator(checkedElementList.title, validateOfferTitle, TITLE_OUT_OF_RANGE);
+  //offerPristineValidation.addValidator(checkedElementList.price, validateOfferPrice, getPlaceOutOfRangeText);
   offerPristineValidation.addValidator(checkedElementList.capacity, validateOfferCapacity, getCapacityErrorText);
   offerPristineValidation.addValidator(checkedElementList.room, validateOfferCapacity, getCapacityErrorText);
 

@@ -125,8 +125,14 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" required>
-          <!-- min="0" max="1000000" -->
+          <input id="price" name="price" type="number" placeholder="5000"
+          required
+          data-pristine-required-message="Укажите цену за ночь"
+          min="0"
+          data-pristine-min-message="Цена за ночь не может быть отрицательной"
+          max="100000"
+          data-pristine-max-message="Мы не размещаем объявления с космическими ценами. Рекламируйте жильё дешевле 100 тыс."
+          >
           <div class="ad-form__slider"></div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
