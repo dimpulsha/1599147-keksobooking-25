@@ -1,80 +1,70 @@
-import { getOfferPlace, getObjItemByValue, getPlaceCapacity } from '../config.js';
 import { getCheckedElementList } from './form.js';
 // валидация формы
 
-const TITLE_MIN = 30;
-const TITLE_MAX = 100;
-const TITLE_OUT_OF_RANGE = `Значение должно быть не менее ${TITLE_MIN} и не более ${TITLE_MAX} знаков`;
-
-const validators = {
-  title:{
-
-  }
-}
-
-const offerPlaceList = getOfferPlace();
-const offerCapacityList = getPlaceCapacity();
-
-const createOfferPristineObject = (offerForm) => {
-
-  const result =  new Pristine(offerForm, {
-    classTo: 'ad-form__element',
-    errorClass: 'ad-form__element--error',
-    // successClass: '',
-    errorTextParent: 'ad-form__element',
-    errorTextTag: 'span',
-    errorTextClass: 'ad-form__element--error-text',
-  });
-
-  return result;
+const pristineConfig = {
+  classTo: 'ad-form__element',
+  errorClass: 'ad-form__element--error',
+  // successClass: '',
+  errorTextParent: 'ad-form__element',
+  errorTextTag: 'span',
+  errorTextClass: 'ad-form__element--error-text',
 };
 
-// const offerPristineValidation = createOfferPristineObject(form);
+const roomGuestRuleSettings = new Map([
+  ['1',['1']],
+  ['2',['1','2']],
+  ['3',['1','2','3']],
+  ['100', ['0']]
+]);
+
+const makeCapacityPredicate = (capacity)=>(configuredCapacity)=>configuredCapacity===capacity;
+const validateAllowedGuests = (capacities, capacity)=>{
+  if(!Array.isArray(capacities)){
+    throw new Error('что-то с версткой или настройками?');
+  }
+  return capacities.some(makeCapacityPredicate(capacity));
+};
+
+const validateRoomGuestRule = (roomCount, capacity)=>validateAllowedGuests(roomGuestRuleSettings.get(roomCount), capacity);
+
+const makeOptionReducer = (capacities)=>{
+  if(!Array.isArray(capacities)){
+    throw new Error('передайте массив настроек');
+  }
+  return (accumulator, option)=>{
+    if(capacities.some((capacity)=>capacity===option.value)){
+      return `${accumulator} ${option.label},`;
+    }
+    return accumulator;
+  };};
+
+const collectOptions = (dropDownList, capacities)=> [...dropDownList.options].reduce(makeOptionReducer(capacities),'').slice(0,-1);
+
+const createOfferPristineObject = (offerForm) => new Pristine(offerForm, pristineConfig);
 
 const offerValidation = (form, offerPristineValidation) => {
 
-  const checkedElementList = getCheckedElementList(form);
+  const {room,capacity} = getCheckedElementList(form);
 
-  //const validateOfferTitle = (value) => value.length >= TITLE_MIN && value.length <= TITLE_MAX;
 
-  // const validateOfferPrice = () => {
-  //   const placeByKind = getObjItemByValue(offerPlaceList, 'kind', checkedElementList.type.value);
-  //   return checkedElementList.price.value >= placeByKind.minPrice && checkedElementList.price.value <= placeByKind.maxPrice;
-  // };
+  const validateOfferCapacity = () => validateRoomGuestRule(room.value, capacity.value);
+  const getCapacityErrorText = () => `Уточните
+  количество комнат
+  и количество гостей.
+  Нашими правилами разрешается:
+    ${room.options[room.selectedIndex].label} ${collectOptions(capacity, roomGuestRuleSettings.get(room.value))}`;
 
-  const validateOfferCapacity = () => {
-    const capacityByRoom = getObjItemByValue(offerCapacityList, 'roomValue', checkedElementList.room.value);
-    return checkedElementList.capacity.value >= capacityByRoom.MIN && checkedElementList.capacity.value <= capacityByRoom.MAX;
-  };
+  offerPristineValidation.addValidator(capacity, validateOfferCapacity, getCapacityErrorText);
+  offerPristineValidation.addValidator(room, validateOfferCapacity, getCapacityErrorText);
 
-  // const getPlaceOutOfRangeText = () => {
-  //   const placeByKind = getObjItemByValue(offerPlaceList, 'kind', checkedElementList.type.value);
-  //   return `Цена за ночь не менее ${placeByKind.minPrice} и не более ${placeByKind.maxPrice}`;
-  // };
-
-  const getCapacityErrorText = () => {
-    const capacityByRoom = getObjItemByValue(offerCapacityList, 'roomValue', checkedElementList.room.value);
-    if (capacityByRoom.MAX === 0 ) {
-      return `Для количества комнат ${capacityByRoom.roomValue} указано неверное количество гостей \n Допустимое значение "${capacityByRoom.description}"  \n Измените количество комнат или количество гостей`;
-    } else {
-      return `Для количества комнат ${capacityByRoom.roomValue} указано неверное количество гостей \n Допустимое число гостей от "${capacityByRoom.MIN}" до "${capacityByRoom.MAX}" \n Измените количество комнат или количество гостей`;
-    }
-  };
-
-  // валидаторы
-  //  offerPristineValidation.addValidator(checkedElementList.title, validateOfferTitle, TITLE_OUT_OF_RANGE);
-  //offerPristineValidation.addValidator(checkedElementList.price, validateOfferPrice, getPlaceOutOfRangeText);
-  offerPristineValidation.addValidator(checkedElementList.capacity, validateOfferCapacity, getCapacityErrorText);
-  offerPristineValidation.addValidator(checkedElementList.room, validateOfferCapacity, getCapacityErrorText);
-
-  // листинер для валидации
-  const validateListener = (evt) => {
+  //листинер для валидации
+  const handleSubmit = (evt) => {
     if (!offerPristineValidation.validate()) {
       evt.preventDefault();
     }
   };
 
-  form.addEventListener('submit', validateListener);
+  form.addEventListener('submit', handleSubmit);
 };
 
 export { offerValidation, createOfferPristineObject};
