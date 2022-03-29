@@ -1,25 +1,42 @@
 // //модуль работы с формой
-import { getOfferPlaces } from '../config.js';
-import { getOfferFormElements, getAddressPrecision,  } from './form-config.js';
-import { formatAddressByLocation } from '../utils/utils.js';
+import {
+  getOfferPlaces
+} from '../config.js';
+import {
+  getOfferFormElements,
+  getAddressPrecision,
+} from './form-config.js';
+import {
+  formatAddressByLocation
+} from '../utils/utils.js';
 // import { getMapInitCenter } from '../map/map-config.js';
-import { resetMainMarker } from '../map/map.js';
-import { offerValidation, createOfferPristineObject } from './validate-form.js';
-import { postData } from '../server.js';
-import { createSliderObject, setSliderListeners } from '../slider/slider.js';
+import {
+  resetMainMarker
+} from '../map/map.js';
+import {
+  offerValidation,
+  createOfferPristineObject
+} from './validate-form.js';
+import {
+  postData
+} from '../server.js';
+import {
+  createSliderObject,
+  setSliderListeners
+} from '../slider/slider.js';
 
 const places = getOfferPlaces();
 
 const disableElement = (element) => element.setAttribute('disabled', '');
-const enableElement  = (element)=>element.removeAttribute('disabled');
+const enableElement = (element) => element.removeAttribute('disabled');
 
 const disableForm = (form) => {
   form.classList.add('ad-form--disabled');
   [...form.elements].forEach(disableElement);
 };
 
-const disableSlider = (form) =>  disableElement(getOfferFormElements(form).priceSlider);
-const enableSlider = (form) =>  enableElement(getOfferFormElements(form).priceSlider);
+const disableSlider = (form) => disableElement(getOfferFormElements(form).priceSlider);
+const enableSlider = (form) => enableElement(getOfferFormElements(form).priceSlider);
 
 const enableForm = (form) => {
   // console.log(form);
@@ -92,12 +109,13 @@ const prepareOfferForm = (offerForm, successPopup, errorPopup) => {
 
   setOffervalidation(offerForm, offerPristineObject, formElementList);
 
-  const resetForm = () => {
+  const resetForm1 = () => {
     // console.log('reset function');
-    offerForm.reset();
+    //offerForm.reset();
     formElementList.priceSlider.noUiSlider.reset();
     resetMainMarker(offerForm);
   };
+  const resetForm = () => setTimeout(resetForm1, 0);
 
   const onSuccessSendForm = () => {
     successPopup();
@@ -105,7 +123,7 @@ const prepareOfferForm = (offerForm, successPopup, errorPopup) => {
   };
 
   const onResetForm = () => {
-    // evt.preventDefault();
+    //evt.preventDefault();
     resetForm();
   };
 
@@ -122,4 +140,11 @@ const prepareOfferForm = (offerForm, successPopup, errorPopup) => {
   offerForm.addEventListener('reset', onResetForm);
 };
 
-export { disableForm, enableForm, prepareOfferForm, setOfferAddress, disableSlider, enableSlider };
+export {
+  disableForm,
+  enableForm,
+  prepareOfferForm,
+  setOfferAddress,
+  disableSlider,
+  enableSlider
+};
