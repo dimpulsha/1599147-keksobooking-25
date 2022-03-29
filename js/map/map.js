@@ -39,10 +39,11 @@ const mapInitMainMarker = (map, form) => {
 const resetMarker = (marker, location) => { marker.setLatLng(location); };
 
 const resetMainMarker = (form) => {
-  resetMarker(mainMarker, getMapInitCenter());
+  const center = getMapInitCenter();
+  resetMarker(mainMarker, center);
   // console.log('reset marker');
   // const setAddress = ;
-  setOfferAddress(form)(getMapInitCenter());
+  setOfferAddress(form)(center);
   // console.log('reset Address');
 };
 
